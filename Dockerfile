@@ -89,3 +89,4 @@ RUN make install
 RUN apt-get clean
 
 WORKDIR /usr/src/testsuite
+CMD ./runtests.py
