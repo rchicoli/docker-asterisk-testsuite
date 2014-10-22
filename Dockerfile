@@ -29,7 +29,20 @@ RUN apt-get -qq -y install \
     lua5.1 \
     python-setuptools \
     libssl-dev \
+    python-requests \
+    libcurl4-gnutls-dev \
     python-dev
+
+# Install pjproject
+WORKDIR /usr/src
+RUN wget http://www.pjsip.org/release/2.2.1/pjproject-2.2.1.tar.bz2
+RUN tar -xjvf pjproject-2.2.1.tar.bz2
+WORKDIR /usr/src/pjproject-2.2.1
+RUN ./configure --prefix=/usr --enable-shared --disable-sound --disable-resample --disable-video --disable-opencore-amr
+RUN make dep
+RUN make
+RUN make install
+RUN ldconfig
 
 # Install Asterisk
 WORKDIR /usr/src
@@ -49,6 +62,20 @@ WORKDIR /usr/src/sipp.svn
 RUN make pcapplay_ossl
 RUN cp sipp /usr/local/bin
 
+# Install pjsua
+WORKDIR /usr/src
+RUN wget http://www.pjsip.org/release/1.16/pjproject-1.16.tar.bz2
+RUN tar xfvj pjproject-1.16.tar.bz2
+WORKDIR /usr/src/pjproject-1.16
+RUN ./configure CFLAGS=-fPIC
+RUN echo "#define PJ_HAS_IPV6 1" > pjlib/include/pj/config_site.h
+RUN make dep
+RUN make
+RUN cp pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu /usr/local/bin/pjsua
+WORKDIR pjsip-apps/src/python
+RUN python ./setup.py install
+
+
 # Install testsuite
 WORKDIR /usr/src
 RUN svn checkout http://svn.asterisk.org/svn/testsuite/asterisk/trunk testsuite
@@ -65,25 +92,18 @@ RUN make update
 WORKDIR starpy
 RUN python setup.py install
 
-# Install pjsua
-WORKDIR /usr/src
-RUN wget http://www.pjsip.org/release/1.16/pjproject-1.16.tar.bz2
-RUN tar xfvj pjproject-1.16.tar.bz2
-WORKDIR /usr/src/pjproject-1.16
-RUN ./configure CFLAGS=-fPIC
-RUN echo "#define PJ_HAS_IPV6 1" > pjlib/include/pj/config_site.h
-RUN make dep
-RUN make
-RUN cp pjsip-apps/bin/pjsua-x86_64-unknown-linux-gnu /usr/local/bin/pjsua
-WORKDIR pjsip-apps/src/python
-RUN python ./setup.py install
-
 # Install yappcap
 WORKDIR /usr/src
 RUN git clone https://github.com/otherwiseguy/yappcap.git 
 WORKDIR /usr/src/yappcap
 RUN make
 RUN make install
+
+# Install Autobahn
+WORKDIR /usr/src 
+RUN git clone https://github.com/tavendo/AutobahnPython.git
+WORKDIR /usr/src/AutobahnPython/autobahn
+RUN python ./setup.py install
 
 # Clean
 RUN apt-get clean
