@@ -11,6 +11,7 @@ RUN apt-get -qq update
 RUN apt-get -qq -y install \
     wget \
     apt-utils \
+    procps \
     git \
     subversion \
     python-yaml \
@@ -86,7 +87,6 @@ RUN python ./setup.py install
 # Install testsuite
 WORKDIR /usr/src
 RUN svn checkout http://svn.asterisk.org/svn/testsuite/asterisk/trunk testsuite
-WORKDIR /usr/src/testsuite
 
 # Install asttest
 WORKDIR /usr/src/testsuite/asttest
