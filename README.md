@@ -1,5 +1,9 @@
 Dockerfile for Asterisk testsuite (or PaulSuite)
 
+More info to run the test here :
+
+    https://wiki.asterisk.org/wiki/display/AST/Running+the+Asterisk+Test+Suite
+
 ## Install Docker
 
 To install docker on Linux :
