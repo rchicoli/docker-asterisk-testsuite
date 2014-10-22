@@ -108,6 +108,12 @@ RUN git clone https://github.com/tavendo/AutobahnPython.git
 WORKDIR /usr/src/AutobahnPython/autobahn
 RUN python ./setup.py install
 
+# Install pyXB
+WORKDIR /usr/src 
+RUN git clone https://github.com/pabigot/pyxb.git
+WORKDIR /usr/src/pyxb
+RUN python ./setup.py install
+
 # Clean
 RUN apt-get clean
 
