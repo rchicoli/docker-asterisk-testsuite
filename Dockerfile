@@ -32,7 +32,7 @@ RUN apt-get -qq -y install \
     python-requests \
     libcurl4-gnutls-dev \
     libsrtp0-dev \
-    libtiff5-dev \
+    libtiff-dev \
     libspandsp-dev \
     python-dev
 
