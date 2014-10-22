@@ -19,6 +19,8 @@ To build the image, simply invoke
 Or directly in the sources
 
     docker build -t asterisk-testsuite .
+
+If you don't want to build go directly to the section from docker hub.
   
 ## Usage
 
@@ -26,9 +28,13 @@ To run the container, do the following:
 
     docker run -d -P asterisk-testsuite
 
-On interactive mode :
+On interactive mode:
 
     docker run -i -t asterisk-testsuite /bin/bash
+
+From docker hub:
+
+    docker run -i -t quintana/asterisk-testsuite /bin/bash
 
 After launch runtest.
 
