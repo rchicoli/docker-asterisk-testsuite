@@ -52,6 +52,8 @@ WORKDIR /usr/src
 RUN svn checkout http://svn.asterisk.org/svn/asterisk/trunk asterisk
 WORKDIR /usr/src/asterisk
 RUN ./configure --enable-dev-mode
+RUN make menuselect
+RUN menuselect/menuselect --enable TEST_FRAMEWORK menuselect.makeopts
 RUN make
 RUN make install
 RUN make samples
@@ -61,7 +63,9 @@ RUN make config
 WORKDIR /usr/src
 RUN git clone https://github.com/SIPp/sipp.git
 WORKDIR /usr/src/sipp
-RUN ./configure --with-pcap --with-sctp --with-openssl 
+RUN git submodule update --init
+RUN ./configure --with-pcap --with-openssl 
+RUN make sipp_unittest
 RUN make
 RUN cp sipp /usr/local/bin
 
@@ -122,6 +126,17 @@ RUN python ./setup.py install
 
 # Clean
 RUN apt-get clean
+WORKDIR /usr/src 
+RUN rm -rf AutobahnPython \
+           construct \
+           pjproject-1.16.tar.bz2 \
+           pjproject-2.2.1.tar.bz2  \
+           sipp \
+           yappcap \
+           asterisk \
+           pjproject-1.16 \
+           pjproject-2.2.1 \
+           pyxb
 
 WORKDIR /usr/src/testsuite
 CMD ./runtests.py
