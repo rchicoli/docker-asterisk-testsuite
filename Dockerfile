@@ -31,6 +31,9 @@ RUN apt-get -qq -y install \
     libssl-dev \
     python-requests \
     libcurl4-gnutls-dev \
+    libsrtp0-dev \
+    libtiff5-dev \
+    libspandsp-dev \
     python-dev
 
 # Install pjproject
