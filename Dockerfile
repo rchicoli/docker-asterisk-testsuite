@@ -114,6 +114,12 @@ RUN git clone https://github.com/pabigot/pyxb.git
 WORKDIR /usr/src/pyxb
 RUN python ./setup.py install
 
+# Install construct
+WORKDIR /usr/src 
+RUN git clone https://github.com/construct/construct.git
+WORKDIR /usr/src/construct
+RUN python ./setup.py install
+
 # Clean
 RUN apt-get clean
 
