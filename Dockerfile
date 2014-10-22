@@ -61,7 +61,8 @@ RUN make config
 WORKDIR /usr/src
 RUN git clone https://github.com/SIPp/sipp.git
 WORKDIR /usr/src/sipp
-RUN ./build.sh --with-pcap --with-sctp --with-openssl 
+RUN ./configure --with-pcap --with-sctp --with-openssl 
+RUN make
 RUN cp sipp /usr/local/bin
 
 # Install pjsua
