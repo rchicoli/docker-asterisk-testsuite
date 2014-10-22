@@ -51,7 +51,7 @@ RUN ldconfig
 WORKDIR /usr/src
 RUN svn checkout http://svn.asterisk.org/svn/asterisk/trunk asterisk
 WORKDIR /usr/src/asterisk
-RUN ./configure
+RUN ./configure --enable-dev-mode
 RUN make
 RUN make install
 RUN make samples
@@ -59,10 +59,9 @@ RUN make config
 
 # Install SIPp
 WORKDIR /usr/src
-RUN wget http://sipp.sourceforge.net/snapshots/sipp.2009-07-29.tar.gz
-RUN tar xfvz sipp.2009-07-29.tar.gz
-WORKDIR /usr/src/sipp.svn
-RUN make pcapplay_ossl
+RUN git clone https://github.com/SIPp/sipp.git
+WORKDIR /usr/src/sipp
+RUN ./build.sh --with-pcap --with-sctp --with-openssl 
 RUN cp sipp /usr/local/bin
 
 # Install pjsua
