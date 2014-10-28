@@ -42,6 +42,7 @@ WORKDIR /usr/src
 RUN wget http://www.pjsip.org/release/2.2.1/pjproject-2.2.1.tar.bz2
 RUN tar -xjvf pjproject-2.2.1.tar.bz2
 WORKDIR /usr/src/pjproject-2.2.1
+ENV CFLAGS -DPJ_HAS_IPV6=1
 RUN ./configure --prefix=/usr --enable-shared --disable-sound --disable-resample --disable-video --disable-opencore-amr
 RUN make dep
 RUN make
