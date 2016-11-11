@@ -1,4 +1,4 @@
-Dockerfile for Asterisk testsuite (or PaulSuite)
+# Dockerfile for Asterisk testsuite
 
 More info to run the test here :
 
@@ -8,10 +8,10 @@ More info to run the test here :
 
 To install docker on Linux :
 
-    curl -sL https://get.docker.io/ | sh
- 
+    curl -sL https://get.docker.io /| sh
+
  or
- 
+
      wget -qO- https://get.docker.io/ | sh
 
 ## Build
@@ -25,7 +25,7 @@ Or directly in the sources
     docker build -t asterisk-testsuite .
 
 If you don't want to build go directly to the section from docker hub.
-  
+
 ## Usage
 
 To run the container, do the following:
@@ -46,5 +46,4 @@ After launch runtest.
 
 ## Infos
 
-- Using docker version 1.3.0 (from get.docker.io) on ubuntu 14.04.
 - If you want to using a simple webi to administrate docker use : https://github.com/crosbymichael/dockerui
